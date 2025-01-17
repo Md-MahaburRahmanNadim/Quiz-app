@@ -1,6 +1,7 @@
 import { Alert, StyleSheet, Text, View } from "react-native";
 import AnswerOption from "./AnswerOption";
 import { Question } from "../types";
+import Card from "./Card";
 type QuestionCard = {
   question: Question;
 };
@@ -8,8 +9,7 @@ export default function QuestionCard({ question }: QuestionCard) {
   const SelectedOption = question.options[2];
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{question.title}</Text>
+    <Card title={question.title}>
       {question.options.map((option) => {
         return (
           <AnswerOption
@@ -22,7 +22,22 @@ export default function QuestionCard({ question }: QuestionCard) {
           />
         );
       })}
-    </View>
+    </Card>
+    // <View style={styles.container}>
+    //   <Text style={styles.title}>{question.title}</Text>
+    //   {question.options.map((option) => {
+    //     return (
+    //       <AnswerOption
+    //         key={option}
+    //         option={option}
+    //         isSelected={option === SelectedOption}
+    //         onPress={() => {
+    //           Alert.alert(option, "option is pressed");
+    //         }}
+    //       />
+    //     );
+    //   })}
+    // </View>
   );
 }
 
