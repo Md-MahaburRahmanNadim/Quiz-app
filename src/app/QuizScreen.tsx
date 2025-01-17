@@ -8,6 +8,9 @@ import {
 } from "react-native";
 import QuestionCard from "../components/QuestionCard";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import questions from "../questions";
+const Question = questions[0];
+// console.log(Question);
 
 export default function QuizScreen() {
   return (
@@ -17,7 +20,7 @@ export default function QuizScreen() {
           <Text style={styles.title}>Question 1/5</Text>
         </View>
         <View>
-          <QuestionCard />
+          <QuestionCard question={Question} />
           <Text style={styles.timer}>20 sec</Text>
         </View>
         <Pressable
