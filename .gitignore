@@ -8,7 +8,7 @@
 # macOS
 .DS_Store
 
-# Android
+# Androidsds
 /android/.gradle/
 /android/app/build/
 /android/build/
