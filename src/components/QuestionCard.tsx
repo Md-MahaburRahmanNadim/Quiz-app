@@ -7,21 +7,10 @@ type QuestionCard = {
   question: Question;
 };
 export default function QuestionCard({ question }: QuestionCard) {
-  const SelectedOption = question.options[2];
-  const [selectedOption, setSelectedOption] = useState<undefined | string>();
   return (
     <Card title={question.title}>
       {question.options.map((option) => {
-        return (
-          <AnswerOption
-            key={option}
-            option={option}
-            isSelected={option === selectedOption}
-            onPress={() => {
-              setSelectedOption(option);
-            }}
-          />
-        );
+        return <AnswerOption key={option} option={option} />;
       })}
     </Card>
     // <View style={styles.container}>
