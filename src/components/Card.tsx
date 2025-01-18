@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import { PropsWithChildren } from "react";
+
 type Card = {
   title: string;
 };

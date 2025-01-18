@@ -9,6 +9,7 @@ import {
 import QuestionCard from "../components/QuestionCard";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import questions from "../questions";
+import CustomButton from "../components/CustomButton";
 const Question = questions[0];
 // console.log(Question);
 
@@ -23,20 +24,15 @@ export default function QuizScreen() {
           <QuestionCard question={Question} />
           <Text style={styles.timer}>20 sec</Text>
         </View>
-        <Pressable
+        <CustomButton
+          title="Next"
           onPress={() => {
             Alert.alert("next button is presed");
           }}
-          style={styles.buttonContainer}
-        >
-          <Text style={styles.buttonText}>Next</Text>
-          <FontAwesome6
-            name="arrow-right-long"
-            size={16}
-            color="white"
-            style={styles.buttonIcon}
-          />
-        </Pressable>
+          right_icon={
+            <FontAwesome6 name="arrow-right-long" size={16} color="white" />
+          }
+        />
       </View>
     </SafeAreaView>
   );
