@@ -2,12 +2,13 @@ import { Alert, StyleSheet, Text, View } from "react-native";
 import AnswerOption from "./AnswerOption";
 import { Question } from "../types";
 import Card from "./Card";
+import { useState } from "react";
 type QuestionCard = {
   question: Question;
 };
 export default function QuestionCard({ question }: QuestionCard) {
   const SelectedOption = question.options[2];
-
+  const [selectedOption, setSelectedOption] = useState<undefined | string>();
   return (
     <Card title={question.title}>
       {question.options.map((option) => {
@@ -15,9 +16,9 @@ export default function QuestionCard({ question }: QuestionCard) {
           <AnswerOption
             key={option}
             option={option}
-            isSelected={option === SelectedOption}
+            isSelected={option === selectedOption}
             onPress={() => {
-              Alert.alert(option, "option is pressed");
+              setSelectedOption(option);
             }}
           />
         );
