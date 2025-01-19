@@ -1,5 +1,11 @@
 import { View, Text } from "react-native";
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import questions from "../questions";
 import { Question } from "../types";
 
@@ -11,6 +17,8 @@ type QuizContext = {
   setSelectedOption: (option: string) => void;
   scoure: number;
   totalQuestion: number;
+  bestScoure: number;
+  isFinished: boolean;
 };
 /* The code `export const QuizContext = createContext({});` is creating a new context object using the
 `createContext` function provided by React. This context object will be used to share data across
@@ -22,6 +30,8 @@ export const QuizContext = createContext<QuizContext>({
   setSelectedOption: (option) => {},
   scoure: 0,
   totalQuestion: 0,
+  bestScoure: 0,
+  isFinished: false,
 });
 
 export default function QuizContextProvider({ children }: PropsWithChildren) {
@@ -31,6 +41,14 @@ export default function QuizContextProvider({ children }: PropsWithChildren) {
   const [selectedOption, setSelectedOption] = useState<undefined | string>();
   const [scoure, setScoure] = useState(0);
   const isFinished = questionIndex >= questions.length;
+  // show best scoure when the question is finished
+  const [bestScoure, setBestScoure] = useState(0);
+
+  useEffect(() => {
+    if (isFinished === true && scoure > bestScoure) {
+      setBestScoure(scoure);
+    }
+  }, [isFinished]);
   const reStart = () => {
     setQuestionIndex(0);
     setSelectedOption("");
@@ -58,6 +76,8 @@ export default function QuizContextProvider({ children }: PropsWithChildren) {
         setSelectedOption,
         scoure,
         totalQuestion,
+        bestScoure,
+        isFinished,
       }}
     >
       {children}

@@ -7,6 +7,7 @@ import Card from "../components/Card";
 // import { QuizContext } from "../providers/QuizProvider";
 // this 2 line going to convert with the below custom hocks
 import { useQuizContext } from "../providers/QuizProvider";
+import { useEffect, useState } from "react";
 
 export default function QuizScreen() {
   /* The line `const { question, questionIndex } = useContext(QuizContext);` is using the `useContext`
@@ -19,8 +20,39 @@ hook in React to consume the context provided by the `QuizContext` context provi
 the `QuizProvider`. This custom hook abstracts away the complexity of using the `useContext` hook
 directly and provides an easier way to consume the context values within the `QuizScreen` component. */
 
-  const { question, questionIndex, onNext, scoure, totalQuestion } =
-    useQuizContext();
+  const {
+    question,
+    questionIndex,
+    onNext,
+    scoure,
+    totalQuestion,
+    bestScoure,
+    isFinished,
+  } = useQuizContext();
+  // woking for timer
+  const [timer, setTimer] = useState(20);
+  useEffect(() => {
+    /* The line `if (isFinished) return;` in the `useEffect` hook is checking if the `isFinished` flag
+    is true. If `isFinished` is true, it means that the quiz has been completed or finished. In that
+    case, the `return` statement is used to exit early from the `useEffect` hook without executing
+    the rest of the code inside it. This helps in preventing unnecessary operations or side effects
+    from running when the quiz is already finished. */
+
+    if (isFinished) return;
+    setTimer(20);
+    const interval = setInterval(() => {
+      setTimer((t) => t - 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [question]);
+  useEffect(() => {
+    if (timer <= 0) {
+      onNext();
+    }
+  }, [timer]);
 
   return (
     <SafeAreaView style={styles.page}>
@@ -33,14 +65,14 @@ directly and provides an easier way to consume the context values within the `Qu
         {question ? (
           <View>
             <QuestionCard question={question} />
-            <Text style={styles.timer}>20 sec</Text>
+            <Text style={styles.timer}>{timer} sec</Text>
           </View>
         ) : (
           <Card title="Well Done">
             <Text>
               Out of {scoure}/{totalQuestion}
             </Text>
-            <Text>Best scoure :{scoure}</Text>
+            <Text>Best scoure :{bestScoure}</Text>
           </Card>
         )}
         <CustomButton
