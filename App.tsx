@@ -6,9 +6,11 @@ import QuizContextProvider from "./src/providers/QuizProvider";
 
 export default function App() {
   return (
-    <QuizContextProvider>
-      <QuizScreen />
+    <>
+      <QuizContextProvider>
+        <QuizScreen />
+      </QuizContextProvider>
       <StatusBar style="auto" />
-    </QuizContextProvider>
+    </>
   );
 }

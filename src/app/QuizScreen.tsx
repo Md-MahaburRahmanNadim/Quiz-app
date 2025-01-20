@@ -1,14 +1,12 @@
-import { Alert, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import QuestionCard from "../components/QuestionCard";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import CustomButton from "../components/CustomButton";
 import Card from "../components/Card";
-// import { useContext, useState } from "react";
-// import { QuizContext } from "../providers/QuizProvider";
-// this 2 line going to convert with the below custom hocks
 import { useQuizContext } from "../providers/QuizProvider";
 import { useEffect, useRef, useState } from "react";
 import { useTimer } from "../hooks/useTimer";
+
 export default function QuizScreen() {
   // Quizcontent hook data
   const {
@@ -34,6 +32,7 @@ export default function QuizScreen() {
       onNext();
     }
   }, [timer]);
+  
 
   return (
     <SafeAreaView style={styles.page}>

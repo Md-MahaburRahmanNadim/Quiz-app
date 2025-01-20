@@ -8,6 +8,8 @@ import {
 } from "react";
 import questions from "../questions";
 import { Question } from "../types";
+// save the best score on phone strage
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type QuizContext = {
   question?: Question;
@@ -47,8 +49,12 @@ export default function QuizContextProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     if (isFinished === true && scoure > bestScoure) {
       setBestScoure(scoure);
+      saveBestScoure(scoure); // to the phone storage
     }
   }, [isFinished]);
+  useEffect(() => {
+    getBestScoure();
+  }, []);
   const reStart = () => {
     setQuestionIndex(0);
     setSelectedOption("");
@@ -63,6 +69,27 @@ export default function QuizContextProvider({ children }: PropsWithChildren) {
       setScoure((currentScoure) => currentScoure + 1);
     }
     setQuestionIndex((currValue) => currValue + 1);
+  };
+  // saving the bestScore to the phone storage
+  const saveBestScoure = async (value: number) => {
+    try {
+      await AsyncStorage.setItem("best-scoure", value.toString());
+    } catch (e) {
+      // saving error
+    }
+  };
+  // read bestScoure when our app is mounted
+
+  const getBestScoure = async () => {
+    try {
+      const value = await AsyncStorage.getItem("best-scoure");
+      if (value !== null) {
+        // value previously stored
+        setBestScoure(Number(value));
+      }
+    } catch (e) {
+      // error reading value
+    }
   };
 
   return (
