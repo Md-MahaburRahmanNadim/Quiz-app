@@ -6,6 +6,7 @@ import Card from "../components/Card";
 import { useQuizContext } from "../providers/QuizProvider";
 import { useEffect, useRef, useState } from "react";
 import { useTimer } from "../hooks/useTimer";
+import LottieView from "lottie-react-native";
 
 export default function QuizScreen() {
   // Quizcontent hook data
@@ -32,7 +33,6 @@ export default function QuizScreen() {
       onNext();
     }
   }, [timer]);
-  
 
   return (
     <SafeAreaView style={styles.page}>
@@ -48,12 +48,20 @@ export default function QuizScreen() {
             <Text style={styles.timer}>{timer} sec</Text>
           </View>
         ) : (
-          <Card title="Well Done">
-            <Text>
-              Out of {scoure}/{totalQuestion}
-            </Text>
-            <Text>Best scoure :{bestScoure}</Text>
-          </Card>
+          <>
+            <LottieView
+              style={StyleSheet.absoluteFill}
+              autoPlay
+              loop={false}
+              source={require("../../assets/party.json")}
+            />
+            <Card title="Well Done">
+              <Text>
+                Out of {scoure}/{totalQuestion}
+              </Text>
+              <Text>Best scoure :{bestScoure}</Text>
+            </Card>
+          </>
         )}
         <CustomButton
           title="Next"
